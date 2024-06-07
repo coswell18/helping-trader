@@ -1,0 +1,128 @@
+<div class="row justify-content-center">
+    <div class="row">
+        <div class="col-12">
+            <p>Bienvenido a nuestra herramienta para la gestión del conocimiento y retroalimentación, esta te permite crear, organizar y revisar listas de estudio. Tienes la posibilidad de agregar notas y recibir retroalimentación automática o manualmente. Este sistema facilita un aprendizaje estructurado y personalizado, mejorando la retención de información y adaptándose a las necesidades individuales de estudio.</p>
+        </div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-12 col-lg-3 col-xxl-2">
+            <button id="button-open-modal" type="button" class="btn btn-principal w-100" data-bs-toggle="modal" data-bs-target="#gestionFeedbackModal" (click)="clean()">Agregar Lista de estudio</button>
+            <button id="button-open-modal-edit" type="button" class="btn btn-principal visually-hidden" data-bs-toggle="modal" data-bs-target="#gestionFeedbackModal">Editar Lista de estudio</button>
+        </div>
+    </div>
+    <hr class="mt-4">
+    <div class="row mt-4">
+        <!-- <h4 class="mb-4 ">Listas de estudio</h4> -->
+        
+        <div class="col-12">
+            <app-table-generic [data]="list" (selectedElement)="showStudyListSelected($event)" (deleteElement)="deleteElement($event)" (playElement)="playElement($event)" [columns]='[{name:"Nombre Lista",id:"name"},{name:"Descripción Lista",id:"description"},{name:"Tipo lista",id:"type"}]' [actions]="{play:true,show:true,del:true}" [title]="'Listas de estudio'"></app-table-generic>
+        </div>
+
+    </div>
+</div>
+  
+  <!-- Modal -->
+<div [formGroup]="formularioListaEstudio" novalidate>
+    <div class="modal fade" id="gestionFeedbackModal" tabindex="-1" aria-labelledby="gestionFeedbackModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gestionFeedbackModalLabel">Lista de estudio</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clean()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="row justify-content-center">
+                  <div class="row col-12 mt-4">
+                        <div class="mb-3 col-12 col-lg-3">
+                            <label for="type" class="form-label">Tipo de lista</label>
+                            <select name="type"  [(ngModel)]="studyLists.type" id="type" data-placeholder="Selecciona el resultado" data-live-search="true" class="form-select form-control" formControlName="type" required *ngIf="studyLists.flashCards.length==0" (change)="changeType()">
+                                <option value="Nota" selected>Nota</option>
+                                <option value="Pregunta/Respuesta">Pregunta/Respuesta</option>
+                            </select>
+                            <input type="text" class="form-control"  [(ngModel)]="studyLists.type" formControlName="type" *ngIf="studyLists.flashCards.length>0" readonly="true">
+                            <span class="message-error" *ngIf="this.formularioListaEstudio.get('type')?.errors?.['required']">
+                            (Campo requerido)
+                            </span>
+                        </div>
+                        <div class="mb-3 col-12 col-lg-3">
+                            <label for="name" class="form-label">Nombre de la Lista</label>
+                            <input type="text" class="form-control" placeholder="Ingresa el nombre" [(ngModel)]="studyLists.name" formControlName="name" required>
+                            <span class="message-error" *ngIf="this.formularioListaEstudio.get('name')?.errors?.['required']">
+                                (Campo requerido)
+                            </span>
+                        </div>
+                        <div class="mb-3 col-12 col-lg-6">
+                            <label for="description" class="form-label">Descripción de la Lista</label>
+                            <textarea [rows]="2" class="form-control" placeholder="Escribe una descripción" [maxLength]="100" [(ngModel)]="studyLists.description" formControlName="description" required></textarea>
+                            <span class="message-error" *ngIf="this.formularioListaEstudio.get('description')?.errors?.['required']">
+                                (Campo requerido)
+                            </span>
+                        </div>
+                  </div>
+                  <div class="row mt-4">
+                    <hr>
+                    <div class="row col-12" *ngIf="studyLists.type==='Pregunta/Respuesta'">
+                        <h5 class=" mb-4">Agrega una flash card de estudio a la lista <app-tooltip text="Cada flash card tiene una pregunta y una respuesta, es necesario que diligencies ambas cajas de texto para que te permita agregar la flash card a la lista" placement="bottom" width="20"></app-tooltip></h5>
+                        <div class="col-12 col-lg-6">
+                            <label for="question" class="form-label">Agrega la pregunta</label>
+                            <div class="d-flex">
+                                <textarea class="form-control" id="question" [rows]="3" placeholder="Escribe la pregunta" [(ngModel)]="flashCard.question" formControlName="question"></textarea>
+                            </div> 
+                           
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="answer" class="form-label">Agrega la respuesta</label>
+                            <div class="d-flex">
+                                <textarea class="form-control" id="answer" [rows]="3" placeholder="Escribe la respuesta" [(ngModel)]="flashCard.answer" formControlName="answer"></textarea>
+                            </div> 
+                            
+                        </div>
+                        <div class="col-12 col-lg-12 text-center">
+                            <span class="message-error" *ngIf="studyLists.flashCards.length==0">
+                                (Debe tener mínimo un item agregado)
+                            </span>
+                        </div>
+                        <div class="col-12  mt-3">
+                            <button type="button" class="btn btn-principal" (click)="addFlashCard()">Agregar item de estudio</button>
+                        </div>
+                    </div>
+                    <div class="row col-12" *ngIf="studyLists.type==='Nota'">
+                        <h5 class=" mb-4">Agrega items de estudio a la lista <app-tooltip text="Agrega las notas de estudio que quieras, debes diligencias la caja de texto para que te permita adicionar la nota a la lista" placement="bottom" width="20"></app-tooltip></h5>
+                        <div class="col-12 col-lg-6">
+                            <label for="note" class="form-label">Agrega una nota que desees recordar</label>
+                            <div class="d-flex">
+                                <textarea class="form-control" id="note" [rows]="3" placeholder="Escribe la nota" [(ngModel)]="flashCard.note" formControlName="note"></textarea>
+                            </div> 
+                            <span class="message-error" *ngIf="studyLists.flashCards.length==0">
+                              (Debe tener mínimo un item agregado)
+                            </span>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button type="button" class="btn btn-principal" (click)="addFlashCard()">Agregar item de estudio</button>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row justify-content-center mt-4">
+                <div class="row col-12 contenedor-reglas">
+                    <hr>
+                    <h5 class=" mb-4">Listado de estudio</h5>
+                    <app-table-flashcard [data]="studyLists.flashCards" (deleteElement)="deleteFlashCard($event)"></app-table-flashcard>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clean()">Cancelar</button>
+            <button type="button" class="btn btn-principal" [ngClass]="(formularioListaEstudio.valid && studyLists.flashCards.length>0)?'':'disabled'" data-bs-dismiss="modal" (click)="addStudyList()" *ngIf="!stateButtonEdit" >Crear Lista</button>
+            <button type="button" class="btn btn-secundario" [ngClass]="(formularioListaEstudio.valid && studyLists.flashCards.length>0)?'':'disabled'" data-bs-dismiss="modal" (click)="editStudyList()" *ngIf="stateButtonEdit">Editar Lista</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<app-flash-card [list]="studyLists" (sendStudyList)="saveBdFlashCardReview($event)"></app-flash-card>
+<app-alerta [alertType]="alertType" [alertMessage]="alertMessage" (emitEnd)="endAlert()" *ngIf="stateAlert"></app-alerta> 
+
+
+

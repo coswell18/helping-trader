@@ -1,0 +1,16 @@
+<!-- <button class="btn btn-primary" ngbTooltip="Tooltip en el botón" placement="top">Botón con Tooltip</button>
+<button class="btn btn-primary" ngbTooltip="Tooltip en el botón" placement="bottom">Botón con Tooltip</button>
+<button class="btn btn-primary" ngbTooltip="Tooltip en el botón" placement="left">Botón con Tooltip</button>
+<button class="btn btn-primary" ngbTooltip="Botón con Tooltip asdass asdasd asdasd asd asdasd asda sdasd asd asda sdas" placement="right">Botón con Tooltip</button> -->
+
+<img class="mx-2 tooltip-app" src="assets/icons/info-circle-fill-tooltip.svg" alt="" [width]="width" [ngbTooltip]="text" [placement]="placement" *ngIf="!html">
+
+<ng-template #tipContent><div [innerHTML]="html?this.renderizarHTML(this.text):null"></div></ng-template>
+<img class="mx-2 tooltip-app" src="assets/icons/info-circle-fill-tooltip.svg" alt="" [width]="width" [ngbTooltip]="tipContent" [placement]="placement" *ngIf="html">
+	
+
+
+<!-- <ng-template #tipContent>Hello, <b>aaaa</b>!</ng-template>
+<button type="button" class="btn btn-outline-secondary" [ngbTooltip]="tipContent">
+	I've got markup and bindings in my tooltip!
+</button> -->

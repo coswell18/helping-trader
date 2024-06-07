@@ -1,0 +1,140 @@
+<div class="row justify-content-center">
+  <div class="row">
+      <div class="col-12">
+          <p>Bienvenido a nuestra herramienta de registro de operaciones de trading. Esta sección está diseñada para ayudarte a mantener un registro detallado y organizado de tus operaciones de trading. Un seguimiento cuidadoso de tus operaciones te proporcionará insights valiosos para mejorar tu desempeño como trader y alcanzar tus objetivos financieros.</p>
+      </div>
+  </div>
+  <div class="row mt-4 justify-content-start">
+    <div class="col-12 col-lg-3 col-xxl-2">
+      <button id="button-open-modal" type="button" class="btn btn-principal w-100" data-bs-toggle="modal" data-bs-target="#gestionOperationModal" (click)="clean()">Agregar Operación</button>
+      <button id="button-open-modal-edit" type="button" class="btn btn-principal visually-hidden" data-bs-toggle="modal" data-bs-target="#gestionOperationModal">Editar Operación</button>
+    </div>
+      
+  </div>
+  <hr class="mt-4">
+  <div class="row mt-4">
+    <!-- <h4 class="mb-4">Listado de operaciones</h4> -->
+    <div class="col-12">
+        <!-- <app-table-operations [data]="operations" (selectedElement)="showStrategySelected($event)" (deleteElement)="deleteElement($event)"></app-table-operations> -->
+        <app-table-generic [data]="operations" (selectedElement)="showOperationSelected($event)" (deleteElement)="deleteElement($event)" [columns]='[{name:"Fecha",id:"date"},{name:"Estrategia",id:"nameStrategy"},{name:"Sentimiento",id:"feeling"},{name:"Riesgo %",id:"risk"},{name:"RR %",id:"rb"},{name:"Símbolo",id:"symbol"},{name:"Tipo",id:"type"},{name:"Resultado",id:"result"}]' [actions]="{show:true,del:true}" [title]="'Listado de operaciones'"></app-table-generic>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div [formGroup]="formularioOperations" novalidate>
+  <div class="modal fade" id="gestionOperationModal" tabindex="-1" aria-labelledby="gestionOperationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gestionOperationModalLabel">Operación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clean()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="row col-12  col-lg-6 mt-4">
+                  <div class="mb-3 col-12">
+                    <label for="estrategies" class="form-label">Estrategia</label>
+                    <select name="estrategies"  [(ngModel)]="selectedStrategy" (change)="loadRules()" id="estrategies" data-placeholder="Selecciona estrategia" data-live-search="true" class="form-select form-control" formControlName="strategies" required>
+                      <option value="" selected >Selecciona una estrategia</option>
+                      <option *ngFor="let strategy of strategies" [ngValue]="strategy">{{strategy.name}}</option>
+                    </select>
+                      <span class="message-error" *ngIf="this.formularioOperations.get('strategies')?.errors?.['required']">
+                        (Campo requerido)
+                      </span>
+                    </div>
+                    <div class="mb-3 col-12">
+                      <label for="feeling" class="form-label">Sentimiento</label><app-tooltip text="¿Qué sentiento has experimentado al momento de abrir tu operación?" placement="right"></app-tooltip>
+                      <select name="feeling"  [(ngModel)]="operation.feeling" id="feeling" data-placeholder="Selecciona el sentimiento" data-live-search="true" class="form-select form-control" formControlName="feeling" required>
+                        <option value="" selected >Seleccione el sentimiento</option>
+                        <option value="Miendo" selected >Miedo</option>
+                        <option value="Codicia"  >Codicia</option>
+                        <option value="Estrés"  >Estrés</option>
+                        <option value="Alegría"  >Alegría</option>
+                        <option value="Enfado"  >Enfado</option>
+                        <option value="Ansiedad"  >Ansiedad</option>
+                        <option value="Sobre confianza"  >Sobre confianza</option>
+                      </select>
+                      <span class="message-error" *ngIf="this.formularioOperations.get('feeling')?.errors?.['required']">
+                        (Campo requerido)
+                      </span>
+                    </div>
+                    <div class="mb-3 col-12">
+                      <label for="formGroupExampleInput" class="form-label">Riesgo %</label><app-tooltip text="¿Cuánto porcentaje de tu capital deseas arriesgar en esta operación?" placement="right"></app-tooltip>
+                      <input type="number" class="form-control" placeholder="Ej: 0.5" [(ngModel)]="operation.risk" formControlName="risk" required>
+                      <span class="message-error" *ngIf="this.formularioOperations.get('risk')?.errors?.['required']">
+                        (Campo requerido)
+                      </span>
+                  </div>
+                  <div class="mb-3 col-12">
+                    <label for="formGroupExampleInput" class="form-label">Ratio beneficio 1 / X</label><app-tooltip text="¿Cuál es el ratio beneficio que tomarás en esta operación, 1 a 2, 1 a 3, 1 a 4... ?" placement="right"></app-tooltip>
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon1">1 / </span>
+                      <input type="number" class="form-control" placeholder="Ej: 2 ó 3 ó 3.5" [(ngModel)]="operation.rb" formControlName="rb" required>
+                    </div>
+                    <span class="message-error" *ngIf="this.formularioOperations.get('rb')?.errors?.['required']">
+                      (Campo requerido)
+                    </span>
+                </div>
+                    <div class="mb-3 col-12">
+                        <label for="formGroupExampleInput" class="form-label">Símbolo</label>
+                        <input type="text" class="form-control" placeholder="Ingresa el simbolo" [(ngModel)]="operation.symbol" formControlName="symbol" required>
+                        <span class="message-error" *ngIf="this.formularioOperations.get('symbol')?.errors?.['required']">
+                          (Campo requerido)
+                        </span>
+                    </div>
+                    <div class="mb-3 col-12">
+                      <label for="type" class="form-label">Tipo</label>
+                      <select name="type"  [(ngModel)]="operation.type" id="type" data-placeholder="Selecciona el tipo" data-live-search="true" class="form-select form-control" formControlName="type" required>
+                        <option value="" selected >Seleccione tipo operación</option>
+                        <option value="sell" selected >Sell</option>
+                        <option value="buy"  >Buy</option>
+                      </select>
+                      <span class="message-error" *ngIf="this.formularioOperations.get('type')?.errors?.['required']">
+                        (Campo requerido)
+                      </span>
+                    </div>
+                    <div class="mb-3 col-12">
+                      <label for="result" class="form-label">Resultado</label>
+                      <select name="result"  [(ngModel)]="operation.result" id="result" data-placeholder="Selecciona el resultado" data-live-search="true" class="form-select form-control" formControlName="result" required>
+                        <option value="" selected >Seleccione el resultado</option>
+                        <option value="win" selected >Ganada</option>
+                        <option value="lose"  >Perdida</option>
+                      </select>
+                      <span class="message-error" *ngIf="this.formularioOperations.get('result')?.errors?.['required']">
+                        (Campo requerido)
+                      </span>
+                    </div>
+                    
+                </div>
+                <div class="row col-12 col-lg-6 mt-4">
+                    
+                    <div class="col-12 contenedor-reglas">
+                      <label for="formGroupExampleInput" class="form-label">Selecciona las reglas que haz aplicado en la operación</label><app-tooltip text="Recuerda la importancia de seguir tu estrategia estrictamente, no olvides seguir todas las reglas de ella" placement="bottom"></app-tooltip>
+                        <app-table-rule [data]="operation.rules.slice()" (deleteElement)="deleteRule($event)"></app-table-rule>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="formGroupExampleInput2" class="form-label">Imagen de la operación</label>
+                        <input id="file" class="file" type="file" (change)="onFileSelected($event)">
+                        <a href="javascript:void(0)" (click)="loadFile()">
+                            <div class="contenedor-file">
+                                <img [src]="operation.image" alt="Image" *ngIf="operation.image">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clean()">Cancelar</button>
+          <button type="button" class="btn btn-principal" [ngClass]="(formularioOperations.valid && operation.rules.length>0)?'':'disabled'" data-bs-dismiss="modal" (click)="addOperation()" *ngIf="!stateButtonEdit" >Agregar operación</button>
+          <button type="button" class="btn btn-secundario" [ngClass]="(formularioOperations.valid && operation.rules.length>0)?'':'disabled'" data-bs-dismiss="modal" (click)="editOperation()" *ngIf="stateButtonEdit">Editar operación</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-alerta [alertType]="alertType" [alertMessage]="alertMessage" (emitEnd)="endAlert()" *ngIf="stateAlert"></app-alerta> 

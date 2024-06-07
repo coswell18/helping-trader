@@ -1,0 +1,314 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/scss/bootstrap'; 
+:root{
+    --color-principal: #893BDB;
+    --color-primcipal-box-shadow:#893bdb59;
+    --color-borde-sin-datos:#FC8145;
+    --color-tooltip:#58258f;
+}
+*{
+    box-sizing: border-box;
+    font-family: Work Sans,sans-serif;
+    letter-spacing: 0rem;
+    line-height: 1.5
+}
+
+html {
+    margin: 0;
+    // font-size: calc(0.5vw + 0.5em); /* Ajusta el tamaño base según el ancho de la ventana */
+}
+
+body{
+    overflow-x: hidden;
+}
+
+h1,h2,h3,h4,h5{
+    font-weight: 600;
+    color: #4E4F58;
+    font-family: "Montserrat",sans-serif;
+}
+
+p,b,i,label,input,textarea,select,.alert,option,button,span{
+    font-family: Work Sans,sans-serif;
+    color: #4E4F58;
+}
+
+.message-error{
+    color: rgb(255, 111, 111);
+    font-size: 0.75rem;
+    font-family: Work Sans,sans-serif;
+}
+
+.no-data{
+    height: 3.125rem;
+    width: 100%;
+    color: #67697C;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.938rem;
+    border: 0.063rem dashed var(--color-borde-sin-datos);
+}
+
+.btn-principal{
+    background-color: var(--color-principal);
+    color: #fff;
+    font-weight: 400;
+    min-width: 6.25rem;
+    height: 2.5rem;
+    transform: scale(1);
+    transition: transform 0.1s ease-in, background-color 0.1s ease-in, box-shadow 0.1s ease-in;
+}
+
+.btn-principal:hover{
+    background-color: #9838ff;
+    box-shadow: 0rem 0rem 0.75rem 0.063rem #8b5abd;
+    color: #fff;
+    transform: scale(1.02);
+}
+
+.btn-secundario{
+    background-color: #FC8145;
+    color: #fff;
+    height: 2.5rem;
+    transform: scale(1);
+    transition: transform 0.1s ease-in, background-color 0.1s ease-in, box-shadow 0.1s ease-in;
+}
+
+.btn-secundario:hover{
+    background-color: #fd7836;
+    box-shadow: 0rem 0rem 0.75rem 0.063rem #ffa171;
+    color: #fff;
+    transform: scale(1.02);
+}
+
+.btn-secondary{
+    background-color: #6C757D;
+    color: #fff;
+    height: 2.5rem;
+    transform: scale(1);
+    transition: transform 0.1s ease-in, background-color 0.1s ease-in, box-shadow 0.1s ease-in;
+}
+
+.btn-secondary:hover{
+    background-color: #5C636A;
+    box-shadow: 0rem 0rem 0.75rem 0.063rem #a4a6a8;
+    color: #fff;
+    transform: scale(1.02);
+}
+
+
+a>img{
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.1s ease-in, box-shadow 0.1s ease-in;
+}
+
+a> img:hover{
+    transform: scale(1.3);
+    box-shadow: 0rem 0rem 0.75rem 0.063rem transparent;
+}
+
+
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: var(--color-principal);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--color-primcipal-box-shadow);
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--color-primcipal-box-shadow);
+}
+
+label{
+    font-size: 0.938rem;
+    color: #67697C;
+}
+
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #893BDB;
+    border-color: #893BDB;
+}
+
+.page-link:focus{
+    box-shadow: 0 0 0 0.25rem var(--color-primcipal-box-shadow);
+}
+
+.contenedor-file{
+    height: auto;
+    min-height: 15.625rem;
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 0.125rem dotted var(--color-primcipal-box-shadow);
+    overflow: hidden;
+    background-image: url("./assets/icons/camera.svg");
+    background-repeat: no-repeat;
+    // background-size: cover;
+    background-position: center;
+    img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+.file{
+    // visibility: hidden;
+    display: none;
+}
+
+.table{
+    overflow-x: scroll;
+    img{
+        width: 1.563rem;
+        height: 1.563rem;
+    }
+}
+
+.custom-table {
+    border-radius: 0.313rem; /* Agrega bordes redondeados */
+}
+
+.custom-table tr{
+    justify-content: center;
+    align-items: center;
+    height: 3.75rem;
+}
+
+.custom-table th {
+    background-color: #67697C; /* Cambia el fondo del encabezado */
+    color: #fff; /* Cambia el color del texto */
+    padding: 0.938rem;
+}
+
+.custom-table td {
+    padding: 0.938rem; /* Cambia el relleno de las celdas */
+}
+
+
+.custom-table-sm th {
+    background-color: #67697C; /* Cambia el fondo del encabezado */
+    color: #fff; /* Cambia el color del texto */
+    padding: 0.938rem;
+}
+
+.modal-xl{
+    --bs-modal-width: 95%;
+}
+
+.bs-tooltip-top .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+    border-top-color: var(--color-tooltip);
+}
+
+.bs-tooltip-top .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow {
+    bottom: calc(0* var(--bs-tooltip-arrow-height));
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+    border-bottom-color: var(--color-tooltip);
+}
+
+.bs-tooltip-bottom .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
+    top: calc(0* var(--bs-tooltip-arrow-height));
+}
+
+.bs-tooltip-start .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+    border-left-color: var(--color-tooltip);
+}
+
+.bs-tooltip-start .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
+    right: calc(0* var(--bs-tooltip-arrow-height));
+}
+
+.bs-tooltip-end .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+   
+    border-right-color: var(--color-tooltip);
+}
+
+.bs-tooltip-end .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
+    left: calc(0* var(--bs-tooltip-arrow-height));
+}
+
+
+.tooltip-inner {
+    position: relative;
+    max-width: 18.75rem; /* Ajusta el ancho máximo del tooltip si es necesario */
+    white-space: pre-wrap; /* Permite saltos de línea dentro del tooltip */
+    background-color: var(--color-tooltip);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: Work Sans,sans-serif;
+    text-align: start;
+    padding: 0.938rem;
+    b,i{
+        color: #fff;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: gainsboro;
+    border-radius: 11px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #666767;
+    border: 2px solid gainsboro;
+    border-radius: 11px;
+}
+
+::-webkit-scrollbar-button {
+    background-color: #ebebeb;
+    height: 0px;
+    width: 0px;
+    border-radius: 11px !important;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: black;
+}
+/*mozilla*/
+
+::-moz-scrollbar {
+    width: 8px;
+    height: 8px;
+    -moz-appearance: none !important;
+}
+
+::-moz-scrollbar-track {
+    -moz-appearance: none !important;
+    background-color: gainsboro;
+    border-radius: 11px !important;
+}
+
+::-moz-scrollbar-thumb {
+    -moz-appearance: none !important;
+    background-color: #666767 !important;
+    border: 1px solid gainsboro !important;
+    border-radius: 11px !important;
+}
+
+::-moz-scrollbar-button {
+    -moz-appearance: none !important;
+    background-color: #ebebeb;
+    height: 0px;
+    width: 0px;
+}
+
+::-moz-scrollbar-corner {
+    -moz-appearance: none !important;
+    background-color: black;
+}
+  
+

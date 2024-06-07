@@ -1,0 +1,88 @@
+<button id="button-open-modal-study-list" type="button" class="btn btn-principal col-12 col-lg-2 mx-2 visually-hidden" data-bs-toggle="modal" data-bs-target="#modalStudy"></button>
+
+<div class="modal fade" id="modalStudy" tabindex="-1" aria-labelledby="modalStudyLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" [ngClass]="studyList.type==='Nota'?'modal-lg ':'modal-xl'">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalStudyLabel">Repasa tu Lista ({{this.studyList.name}})</h5>
+            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center" *ngIf="studyList.type==='Pregunta/Respuesta'">
+                    <div class="col-12">
+                        <h5>Instrucciones</h5>
+                        <p>
+                            1) Mira la pregunta. tómate unos segundos para pensar en la respuesta. Una vez tengas claridad, persiona el botón mostrar respuesta.<br>
+                            2) Según la dificultad que te haya dado responder esta pregunta, califica la respuesta.
+                        </p>
+                        <hr>
+                    </div>
+                    <div class="col-12 col-lg-5 mt-4 text-center justify-content-center" *ngIf="studyList.flashCards.length>0">
+                        <div class="question">
+                            <h5>Pregunta</h5>
+                            <p>{{studyList.flashCards[posNote].question}}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 mt-4 text-center justify-content-center" *ngIf="studyList.flashCards.length>0">
+                        <div class="question" *ngIf="stateAnswer">
+                            <h5>Respuesta</h5>
+                            <p>{{studyList.flashCards[posNote].answer}}</p>
+                        </div>
+                        <div class="question d-flex justify-content-center align-items-center" *ngIf="!stateAnswer">
+                            <a href="javascript:void(0)" (click)="showAnswer()" class="d-flex align-items-center justify-content-center"><img src="assets/icons/eye-fill-answer.svg" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8 mt-4 justify-content-center text-center" *ngIf="studyList.flashCards.length==0">
+                        <h5>Felicidades!!! No hay más tarjetas para repasar</h5>
+                        <img src="assets/images/completed_goal.svg" alt="" width="50%">
+                        <p>Te invitamos a que incrementes tus conocientos con otras listas mientras se habilitan las Flash Cards de esta.</p>
+                    </div>
+                    <div class="row flex-row flex-md-column col-12 col-lg-2 mt-4  justify-content-evenly align-items-center" *ngIf="stateAnswer">
+                        <!-- <div class="col-4 col-md-4 col-lg-4 col-xl-12">
+                            <button type="button" class="btn btn-principal  mx-2" (click)="putScore('again')">Repetir</button>
+                        </div> -->
+                        <div class="col-4 col-md-4 col-lg-4 col-xl-12">
+                            <button type="button" class="btn btn-principal  mx-2" (click)="putScore('hard')">Difícil</button>
+                        </div>
+                        <div class="col-4 col-md-4 col-lg-4 col-xl-12">
+                            <button type="button" class="btn btn-principal  mx-2" (click)="putScore('good')">Bien</button>
+                        </div>
+                        <div class="col-4 col-md-4 col-lg-4 col-xl-12">
+                            <button type="button" class="btn btn-principal  mx-2" (click)="putScore('easy')">Fácil</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" *ngIf="studyList.type==='Nota'">
+                    <div class="row col-12">
+                        <h5>Instrucciones</h5>
+                        <p>Esta lista, sirve de repaso, ve a la siguiente tarjeta o a la anterior y refresca tu memoria. Recuerda que puedes editar estas listas en el módulo de Retroalimentación</p>
+                        <hr>
+                    </div>
+                    <div class="row col-12 mt-4 text-center">
+                        <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item text-note" [ngClass]="i==0?'active':''" *ngFor="let flashCard of studyList.flashCards;let i = index">
+                                    <p>{{flashCard.note}}</p>
+                                </div>
+                            
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

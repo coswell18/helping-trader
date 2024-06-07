@@ -1,0 +1,6 @@
+<div>
+    <div class="alert message-note" [ngClass]="type==='rule'?'alert-rule':'alert-note'"  role="alert" #toast>
+        <div class="close-toast" (click)="closeToast()">x</div>
+        <span [innerHTML]="message"></span>
+    </div>
+</div>

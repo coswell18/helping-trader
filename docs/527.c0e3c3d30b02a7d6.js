@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgestion_control_trading=self.webpackChunkgestion_control_trading||[]).push([[527],{7527:(_,o,t)=>{t.r(o),t.d(o,{HomeModule:()=>r});var a=t(6814),l=t(594),s=t(9468);let r=(()=>{class n{static#t=this.\u0275fac=function(u){return new(u||n)};static#n=this.\u0275mod=s.oAB({type:n});static#o=this.\u0275inj=s.cJS({imports:[a.ez,l.Bz]})}return n})()}}]);

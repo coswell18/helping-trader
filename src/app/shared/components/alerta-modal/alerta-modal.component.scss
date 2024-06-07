@@ -1,0 +1,12 @@
+.contenedor-alert{
+    position: fixed;
+    z-index: 10000;
+    top: 0.313rem;
+    right: 0.313rem;
+    transform: translateX(1000px);
+    transition: transform .2s ease-in-out;
+}
+
+.contenedor-alert.active{
+    transform: translateX(0px);
+}

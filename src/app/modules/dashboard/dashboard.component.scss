@@ -1,0 +1,33 @@
+.contenedor-chart{
+    padding: 1.25rem;
+    border: 0.063rem solid rgba(156, 156, 156, 0.253);
+    border-radius: 0.938rem;
+    box-shadow: 0.438rem 0.375rem 0.625rem -0.438rem #0cb5a28a;
+    min-height: 21.875rem;
+}
+
+.titulo-datos{
+    height: 5rem;
+    color: #fff;
+    // font-weight: 600;
+    font-size: 1.563rem;
+    background: #4E4F58;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto-datos{
+    height: 5rem;
+    border: 0.063rem solid #fff;
+    color: #fff;
+    font-weight: 400;
+    background: #67697C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-data-image{
+    width: 40%;
+}

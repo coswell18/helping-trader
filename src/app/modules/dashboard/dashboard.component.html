@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+
+    <div class="col-12">
+        <p>Bienvenido a nuestra herramienta de análisis de datos. Este espacio te presenta indicadores específicos para conocer tus niveles de disciplina, asertividad, objetivo de ganancia y algunas estadísticas de tus operaciones realizadas. <app-tooltip text="Recuerda, todas las gráficas serán filtradas por los parámetros que configures a continuación" placement="bottom"></app-tooltip>
+    </div>
+
+</div>
+<div class="row justify-content-center" *ngIf="dataOperationsTmp.length>0">
+    <div class="row col-12 mt-4 justify-content-start" [formGroup]="formularioDashboard">
+        <div class="mb-3 col-12 col-lg-3">
+            <label for="estrategies" class="form-label">Estrategia</label>
+            <select name="estrategies"  [(ngModel)]="selectedStrategy" id="estrategies" data-placeholder="Selecciona estrategia" data-live-search="true" class="form-select form-control" formControlName="strategies" required>
+              <option value="" selected >Selecciona una estrategia</option>
+              <option *ngFor="let strategy of strategies" [ngValue]="strategy">{{strategy.name}}</option>
+            </select>
+            <span class="message-error" *ngIf="this.formularioDashboard.get('strategies')?.errors?.['required']">
+                (Campo requerido)
+            </span>
+        </div>
+        <div class="mb-3 col-12 col-lg-3">
+            <label for="feeling" class="form-label">Desde</label>
+            <input type="date" class="form-control" placeholder="Escribe cuál es tu objetivo" [(ngModel)]="dateIni" formControlName="dateIni" required>
+            <span class="message-error" *ngIf="this.formularioDashboard.get('dateIni')?.errors?.['required']">
+                (Campo requerido)
+            </span>
+        </div>
+        <div class="mb-3 col-12 col-lg-3">
+            <label for="feeling" class="form-label">Hasta</label>
+            <input type="date" class="form-control" placeholder="Escribe cuál es tu objetivo" [(ngModel)]="dateFin" formControlName="dateFin" required>
+            <span class="message-error" *ngIf="this.formularioDashboard.get('dateFin')?.errors?.['required']">
+                (Campo requerido)
+            </span>
+        </div>
+        <div class="col-12 col-lg-3 align-self-center" [ngClass]="formularioDashboard.valid?'mt-3':''">
+            <button type="button" class="btn btn-principal" (click)="formularioDashboard.valid?filter():null">Aplicar</button>
+            <button type="button" class="btn btn-secondary mx-3" (click)="cleanFilter()">Limpiar</button>
+        </div>
+    </div>
+    
+    
+    <div class="row justify-content-around mb-4" *ngIf="dataOperations.length > 0">
+        <div class="col-12 col-lg-5 mt-4 contenedor-chart">
+            <canvasjs-chart [options]="chartOptionsPieDisciplina"  *ngIf="statusDicipline"></canvasjs-chart>
+        </div>
+        <div class="col-12 col-lg-5 mt-4 contenedor-chart">
+            <canvasjs-chart [options]="chartOptionsPieWinRate"  *ngIf="statusWinRate"></canvasjs-chart>
+        </div>
+    </div>
+    <hr class="mt-4">
+    <div class="row mt-4 justify-content-center" *ngIf="dataOperations.length > 0">
+        <div class="mb-3 col-12 col-lg-2 text-center">
+            <label for="formGroupExampleInput" class="form-label">Ingresa tu objetivo en % </label><app-tooltip text="Ingresa el objetivo que quieres alcanzar en el rango de fechas que has seleccionado previamente" placement="right"></app-tooltip>
+            <input type="number" class="form-control" placeholder="Escribe cuál es tu objetivo" [(ngModel)]="goal" (keyup)="saveGoal()">
+        </div>
+    </div>
+    <div class="row mt-5 justify-content-around" *ngIf="dataOperations.length > 0">
+        <div class="col-12 col-lg-5 mt-4 contenedor-chart">
+            <canvasjs-chart [options]="chartOptionsGoal2"  *ngIf="statusGoal"></canvasjs-chart>
+        </div>
+        <div class="row col-12 col-lg-5 mt-4 justify-content-center text-center contenedor-chart">
+            <div class="row col-12">
+                <div class="col-12 titulo-datos" style="border-radius: 0.938rem 0.938rem 0rem 0rem ;">Porcentaje ganado</div>
+                <div class="col-12 texto-datos">{{this.percentageWin}}%</div>
+            </div>
+            <div class="row col-12">
+                <div class="col-12 titulo-datos">Operaciones ganadas vs perdidas</div>
+                <div class="col-6 texto-datos" style="border-radius: 0rem 0rem 0rem 0.938rem ;">{{this.operationWin}}</div>
+                <div class="col-6 texto-datos" style="border-radius: 0rem 0rem 0.938rem 0rem ;">{{this.operationLose}}</div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="dataOperations.length==0" class="no-data my-2"><span>No hay datos para estos filtros</span></div>
+  </div>
+
+
+<div class="row col-12 justify-content-center" *ngIf="dataOperationsTmp.length == 0">
+    <hr class="mt-4">
+    <h2>No hay datos históricos para mostrar</h2>
+    <p>Te recomendamos agregar estrategias y operaciones para que puedas analizar la información.</p>
+    <img class="no-data-image mt-5" src="assets/images/no-data.png" alt="">
+</div>
+
+  

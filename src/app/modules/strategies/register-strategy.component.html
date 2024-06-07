@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="row">
+        <div class="col-12">
+            <p>Bienvenido a nuestra herramienta de registro de estrategias de trading. Esta sección está diseñada para ayudarte a mantener un registro detallado y organizado de tus estrategias de trading. Un seguimiento cuidadoso de tus estrategias te proporcionará insights valiosos para mejorar tu desempeño como trader y alcanzar tus objetivos financieros.</p>
+        </div>
+    </div>
+    <div class="row mt-4 justify-content-start">
+        <div class="col-12 col-lg-3 col-xxl-2">
+            <button id="button-open-modal" type="button" class="btn btn-principal w-100" data-bs-toggle="modal" data-bs-target="#gestionStrategyModal" (click)="clean()">Agregar Estrategia</button>
+            <button id="button-open-modal-edit" type="button" class="btn btn-principal visually-hidden" data-bs-toggle="modal" data-bs-target="#gestionStrategyModal">Editar Estrategia</button>
+        </div>
+    </div>
+    <hr class="mt-4">
+    <div class="row mt-4">
+        <!-- <h4 class="mb-4">Listado de estrategias</h4> -->
+
+            <div class="col-12">
+                <!-- <app-table-strategies [data]="strategies" (selectedElement)="showStrategySelected($event)" (deleteElement)="deleteElement($event)"></app-table-strategies> -->
+                <app-table-generic [data]="strategies" (selectedElement)="showStrategySelected($event)" (deleteElement)="deleteElement($event)" [columns]='[{name:"Nombre Estrategia",id:"name"},{name:"Descripción Estrategia",id:"description"}]' [actions]="{show:true,del:true}" [title]="'Listado de estrategias'"></app-table-generic>
+            </div>
+
+    </div>
+</div>
+
+  
+  <!-- Modal -->
+<div [formGroup]="formularioStrategies" novalidate>
+    <div class="modal fade" id="gestionStrategyModal" tabindex="-1" aria-labelledby="gestionStrategyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gestionStrategyModalLabel">Estrategia</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clean()"></button>
+          </div>
+          <div class="modal-body">
+              <div class="row justify-content-center">
+                  <div class="row col-12  col-lg-6 mt-4">
+                      <div class="mb-3 col-12">
+                          <label for="formGroupExampleInput" class="form-label">Nombre de la estrategia</label>
+                          <input type="text" class="form-control" placeholder="Ingresa el nombre" [(ngModel)]="strategy.name" formControlName="name" required [readOnly]="stateButtonEdit">
+                          <span class="message-error" *ngIf="this.formularioStrategies.get('name')?.errors?.['required']">
+                            (Campo requerido)
+                          </span>
+                      </div>
+                      <div class="mb-3 col-12">
+                          <label for="formGroupExampleInput2" class="form-label">Descripción de la estrategia</label>
+                          <textarea [rows]="4" class="form-control" placeholder="Escribe una descripción" [maxLength]="200" [(ngModel)]="strategy.description" formControlName="description" required></textarea>
+                          <span class="message-error" *ngIf="this.formularioStrategies.get('description')?.errors?.['required']">
+                            (Campo requerido)
+                        </span>
+                      </div>
+                  </div>
+                  <div class="row col-12 col-lg-6 mt-4">
+                      <div class="col-12">
+                          <label for="formGroupExampleInput" class="form-label">Agrega reglas a la estrategia</label><app-tooltip [text]="'<b>Ten en cuenta</b><br>1) Escribe una regla en la caja de texto.<br>2) Presiona el botón de agregar.'" placement="bottom" [html]="true"></app-tooltip>
+                          <div class="d-flex">
+                              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Escribe una regla y luego agrégala a tu estrategia" [(ngModel)]="rule" formControlName="rule">
+                              <a href="javascript:void(0)" class="mx-2" (click)="addRule()"><img src="assets/icons/plus-circle-fill.svg" alt=""></a>
+                          </div> 
+                          <span class="message-error" *ngIf="strategy.reglas.length==0">
+                            (Debe tener mínimo una regla)
+                        </span>
+                      </div>
+                      <div class="col-12 contenedor-reglas">
+                          <app-table-rules [data]="strategy.reglas" (deleteElement)="deleteRule($event)"></app-table-rules>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12">
+                          <label for="formGroupExampleInput2" class="form-label">Imagen de la estrategia</label>
+                          <input id="file" class="file" type="file" (change)="onFileSelected($event)">
+                          <a href="javascript:void(0)" (click)="loadFile()">
+                              <div class="contenedor-file">
+                                  <img [src]="strategy.image" alt="Image" *ngIf="strategy.image">
+                              </div>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clean()">Cancelar</button>
+            <button type="button" class="btn btn-principal" [ngClass]="(formularioStrategies.valid && strategy.reglas.length>0)?'':'disabled'" data-bs-dismiss="modal" (click)="addStrategy()" *ngIf="!stateButtonEdit" >Agregar estrategia</button>
+            <button type="button" class="btn btn-secundario" [ngClass]="(formularioStrategies.valid && strategy.reglas.length>0)?'':'disabled'" data-bs-dismiss="modal" (click)="editStrategy()" *ngIf="stateButtonEdit">Editar estrategia</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+ <app-alerta [alertType]="alertType" [alertMessage]="alertMessage" (emitEnd)="endAlert()" *ngIf="stateAlert"></app-alerta> 

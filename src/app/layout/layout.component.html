@@ -1,0 +1,18 @@
+<div class="">    
+    <div class="d-flex min-vh-100">        
+        <div class="content-menu">
+            <app-menu-sidenav [tipo]="'menu'"></app-menu-sidenav>
+        </div>
+        <div class="content">
+            <app-header></app-header>
+            <app-principal-banner></app-principal-banner>
+            <div class="container-fluid container-layout">
+                <router-outlet></router-outlet>
+                <app-toast-note></app-toast-note>
+            </div>
+        </div>
+    </div>   
+    <footer class="footer p-0">
+        <gestion-footer></gestion-footer>
+    </footer>
+</div>

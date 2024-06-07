@@ -1,0 +1,33 @@
+
+<div class="button-menu" *ngIf="!sizeScreen">
+  <a href="javascript:void(0)" (click)="collapseMenuResponsive()">
+    <img src="assets/icons/menu.svg" alt="">
+  </a>
+</div>
+<div class="contenedor-menu" [ngClass]="colapsado?'colapsado':''" #menu>
+  <div>
+    <div class="encabezado-menu">
+      <div class="d-flex align-items-center">
+        <img class="logo" src="assets/images/logo4.png" alt="" alt="" >
+        <img class="logo-texto" src="assets/images/logo4.png" alt="" ><span class="logo-texto_ mx-2">Helping Trader</span>
+      </div>
+      <img class="css-angle-double-left arrow-menu" src="assets/images/angle-double-left.svg" (click)="sizeScreen?collapseMenu():collapseMenuResponsive()" alt="" alt="" >
+      <img class="css-angle-double-right arrow-menu" src="assets/images/angle-double-right.svg" (click)="sizeScreen?collapseMenu():collapseMenuResponsive()" alt="" alt="" >
+    </div>
+    
+    <ul class="menu" id="menu" *ngIf="tipo=='menu'">
+      <li *ngFor="let item of menuObj; let i = index" >
+        <a id="itemsubmenu{{ i }}" (click)="selectItem(item) "class="item-li px-0" [ngClass]="itemSelected==item.path?'li-activado':''" title="{{item.texto}}">
+          <div class="d-flex h-100 align-items-center">
+            <!-- <div class="rect-hover mr-4"></div> -->
+            <img src="{{ item.icono }}" class="icono-item">
+            <span class="texto-item">{{ item.texto }}</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- <div class="volver" *ngIf="tipo=='menu'">
+    <a [routerLink]="'proyectos'"><span class="css-arrow-left">{{!colapsado?'Volver al inicio':''}}</span></a>
+  </div> -->
+</div>

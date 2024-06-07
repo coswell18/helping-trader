@@ -1,0 +1,24 @@
+<table class="table table-responsive table-hover table-striped custom-table-sm">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 10%;">#</th>
+        <th scope="col">Reglas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
+        <td scope="row">{{item.id}}</td>
+        <td class="d-flex align-items-center"><input type="checkbox" class="checkbox" [(ngModel)]="item.estado">{{item.regla}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="data.length==0" class="no-data my-2"><span>No hay datos</span></div>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination class="pt-3"
+      [collectionSize]="data.length" [pageSize]="pageSize" [(page)]="page" [maxSize]="3" [rotate]="true"
+      [ellipses]="true" [boundaryLinks]="false" [size]="'sm'">
+      <ng-template ngbPaginationPrevious><span class=""></span>Anterior</ng-template>
+      <ng-template ngbPaginationNext>Siguiente</ng-template>
+    </ngb-pagination>
+  </div>
+  
