@@ -6,6 +6,9 @@ import { ToastNoteComponent } from './components/toast-note/toast-note.component
 import { AlertaModalComponent } from './components/alerta-modal/alerta-modal.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { FormsModule } from '@angular/forms';
+import { ModalMessageComponent } from './components/modal-message/modal-message.component';
+import { MaintenanceComponent } from './components/maintenance/maintenance.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -13,15 +16,18 @@ import { FormsModule } from '@angular/forms';
     TableGenericComponent,
     ToastNoteComponent,
     AlertaModalComponent,
-    TooltipComponent
+    TooltipComponent,
+    ModalMessageComponent,
+    MaintenanceComponent
   ],
   imports: [
     CommonModule,
     NgbPaginationModule, 
     NgbModule,
-    FormsModule
+    FormsModule, 
+    RouterModule
   ],
-  exports:[TableGenericComponent,ToastNoteComponent,AlertaModalComponent,TooltipComponent],
+  exports:[TableGenericComponent,ToastNoteComponent,AlertaModalComponent,TooltipComponent,ModalMessageComponent,MaintenanceComponent],
   providers: []
 })
 export class SharedModule { }

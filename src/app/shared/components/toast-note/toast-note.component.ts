@@ -9,7 +9,7 @@ import { SharingService } from '../../services/sharing.service';
   styleUrls: ['./toast-note.component.scss']
 })
 export class ToastNoteComponent implements AfterViewInit{
-  timer:number = (0.2*60)*1000;
+  timer:number = (1*60)*1000;
   timerShowMessage:number = 20*1000;
   message:string="";
   dataOperations:Operation[] = []
@@ -61,7 +61,8 @@ export class ToastNoteComponent implements AfterViewInit{
   playTask(){
     this.interval = setInterval(()=>{
       this.type  = this.typeNotes[Math.floor(Math.random() * this.typeNotes.length)];
-      this.type==="rule"?this.playTaskRules():this.playTaskNotes();
+      this.playTaskNotes();
+      // this.type==="rule"?this.playTaskRules():this.playTaskNotes();
     },this.timer)
   }
   playTaskRules(){

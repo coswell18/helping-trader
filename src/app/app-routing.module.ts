@@ -7,9 +7,15 @@ import { RegisterOperationComponent } from './modules/operations/register-operat
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { FeedbackComponent } from './modules/feedback/feedback.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { MaintenanceComponent } from './shared/components/maintenance/maintenance.component';
 
 
 const routes: Routes = [
+  
+  {
+    path:"registrarse",
+    component:MaintenanceComponent
+  },
   { 
     path: 'login', 
     loadChildren: () => 

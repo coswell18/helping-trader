@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  message:string="";
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -17,7 +18,9 @@ export class LoginComponent {
     if(this.authService.login({ email: this.email, password: this.password })){
       this.router.navigate(['/inicio']);
     }else{
-      alert("Error en el logueo")
+      this.message = "Usuario o contraseña incorrecto, intente nuevamente"
+      document.getElementById("btn-modal-message")?.click()
+      // alert("")
     } 
   }
 }

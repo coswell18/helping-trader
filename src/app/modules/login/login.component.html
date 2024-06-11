@@ -3,7 +3,7 @@
         <div class="login">
             <div class="row justify-content-center mb-5">
                 <div class="d-flex align-items-center justify-content-center">
-                    <img src="assets/images/logo4.png" alt="">
+                    <img src="assets/images/logo6.png" alt="">
                     <h1 class="mx-3">Helping Trader</h1>
                 </div>
             </div>
@@ -26,6 +26,10 @@
                 <div class="col-12 col-xl-10 my-5 my-md-1 my-xxl-5">
                     <button type="submit" class="btn btn-principal w-100" (click)="login()">Ingresar</button>
                 </div>
+                <div class="d-flex align-items-center flex-column col-12 col-xl-10 my-2 my-md-1 my-xxl-2">
+                    <span>¿Aún no tienes cuenta?</span>
+                    <a href="/registrarse">!Regístrate¡</a>
+                </div>
             </div>
         </div>
     </div>
@@ -35,4 +39,6 @@
         </div>
     </div>
 </div>
+
+<app-modal-message [message]="message"></app-modal-message>
   

@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -17,7 +15,9 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+    SharedModule
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LoginModule { }
