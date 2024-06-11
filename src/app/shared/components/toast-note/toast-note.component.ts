@@ -10,7 +10,7 @@ import { SharingService } from '../../services/sharing.service';
 })
 export class ToastNoteComponent implements AfterViewInit{
   timer:number = (0.2*60)*1000;
-  timerShowMessage:number = 5*1000;
+  timerShowMessage:number = 20*1000;
   message:string="";
   dataOperations:Operation[] = []
   dataStudiesList:StudyList[] = []

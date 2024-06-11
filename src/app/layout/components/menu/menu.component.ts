@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { SharingService } from 'src/app/shared/services/sharing.service';
@@ -20,12 +20,12 @@ export class MenuComponent implements OnInit,AfterViewInit {
   sizeScreen:boolean=false;
   @ViewChild('menu') menu:ElementRef |null = null
 
-  constructor(private router: Router) {
+  constructor(private router:Router) {
   }
 
   ngOnInit(): void {
     // this.itemSelected = location.pathname.replaceAll("/","")
-    this.sharingService.sharingInfoObservable = {titulo:"¿Qué es Helping Trader?",descripcion:"Acá está todo lo que necesitas saber"}
+    this.sharingService.sharingInfoObservable = {titulo:"¿Qué es Helping Trader?",descripcion:"Acá está todo lo que necesitas saber",path:"inicio"}
     let ele = this.menuObj.find(ele=>ele.path == location.pathname.replaceAll("/",""))
     this.selectItem(ele)
 
@@ -33,6 +33,14 @@ export class MenuComponent implements OnInit,AfterViewInit {
       this.sizeScreen = window.innerWidth > 992 ? true : false 
       this.loadResponsive()
     });
+
+    this.sharingService.getSharingInfoObservable().subscribe(ele=>{
+      if(ele.titulo=="" && ele.path!=""){
+        let module:any = this.menuObj.find(item => ele.path == item.path)
+        this.sharingService.sharingInfoObservable = {titulo:module?.titulo,descripcion:module.descripcion,path:module.path}
+        this.selectItem(module)
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -66,11 +74,10 @@ export class MenuComponent implements OnInit,AfterViewInit {
   }
 
   selectItem(item:any){
-    this.sharingService.sharingInfoObservable = {titulo:item.titulo,descripcion:item.descripcion}
+    this.sharingService.sharingInfoObservable = {titulo:item.titulo,descripcion:item.descripcion,path:item.path}
     this.router.navigate([item.path])
     this.itemSelected = item.path
     this.sizeScreen?null:this.collapseMenuResponsive()
-    // this.colapsado = false;
   }
 
   collapseMenu(){

@@ -2,18 +2,18 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col" *ngIf="data[0].note!=''">Nota</th>
-      <th scope="col" *ngIf="data[0].question!=''">Pregunta</th>
-      <th scope="col" *ngIf="data[0].answer!=''">Respuesta</th>
+      <th scope="col" *ngIf="studyLists.type=='Nota'">Nota</th>
+      <th scope="col" *ngIf="studyLists.type=='Pregunta/Respuesta'">Pregunta</th>
+      <th scope="col" *ngIf="studyLists.type=='Pregunta/Respuesta'">Respuesta</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
-      <td scope="row">{{item.id}}</td>
-      <td *ngIf="item.note!=''"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.note" ></textarea></td>
-      <td *ngIf="item.question!=''"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.question" ></textarea></td>
-      <td *ngIf="item.answer!=''"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.answer" ></textarea></td>
+    <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;let i = index">
+      <td scope="row">{{((page - 1) * pageSize)+i}}</td>
+      <td *ngIf="studyLists.type=='Nota'"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.note" ></textarea></td>
+      <td *ngIf="studyLists.type=='Pregunta/Respuesta'"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.question" ></textarea></td>
+      <td *ngIf="studyLists.type=='Pregunta/Respuesta'"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.answer" ></textarea></td>
       <td style="width: 5%;">
         <div class="mt-3">
             <a href="javascript:void(0)" (click)="deleteData(item)"><img src="assets/icons/trash-fill.svg" alt=""></a>

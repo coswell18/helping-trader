@@ -54,7 +54,7 @@
                       <div class="col-12">
                           <label for="formGroupExampleInput" class="form-label">Agrega reglas a la estrategia</label><app-tooltip [text]="'<b>Ten en cuenta</b><br>1) Escribe una regla en la caja de texto.<br>2) Presiona el botón de agregar.'" placement="bottom" [html]="true"></app-tooltip>
                           <div class="d-flex">
-                              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Escribe una regla y luego agrégala a tu estrategia" [(ngModel)]="rule" formControlName="rule">
+                              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Escribe una regla y luego agrégala a tu estrategia" [(ngModel)]="rule" formControlName="rule" (keydown)="onEnterPress($event)">
                               <a href="javascript:void(0)" class="mx-2" (click)="addRule()"><img src="assets/icons/plus-circle-fill.svg" alt=""></a>
                           </div> 
                           <span class="message-error" *ngIf="strategy.reglas.length==0">

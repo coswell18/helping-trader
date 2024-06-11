@@ -7,8 +7,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize">
-      <td scope="row">{{item.id}}</td>
+    <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;let i = index">
+      <td scope="row">{{((page - 1) * pageSize)+i}}</td>
       <td><input type="text" class="w-100 form-control form-control-sm" [(ngModel)]="item.regla"></td>
       <td style="width: 5%;">
         <div class="d-flex">

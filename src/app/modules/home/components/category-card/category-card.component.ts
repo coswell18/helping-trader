@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharingService } from 'src/app/shared/services/sharing.service';
+
 
 @Component({
   selector: 'app-category-card',
@@ -10,4 +13,14 @@ export class CategoryCardComponent {
   @Input() image = ""
   @Input() title = ""
   @Input() description = ""
+  sharingService = inject(SharingService)
+
+  constructor(private router: Router){
+    
+  }
+
+  navigate(){
+    this.sharingService.sharingInfoObservable = {titulo:"",descripcion:"",path:this.path.replace("/","")}
+    this.router.navigate([this.path.replace("/","")])
+  }
 }

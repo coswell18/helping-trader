@@ -47,6 +47,12 @@ export class RegisterStrategyComponent implements OnInit {
     }, 500);
     
   }
+  onEnterPress(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.addRule()
+      // Aquí puedes agregar la lógica que quieras que se ejecute al presionar Enter
+    }
+  }
 
   addRule(){
     if(this.rule==""){
@@ -55,6 +61,7 @@ export class RegisterStrategyComponent implements OnInit {
     }else{
       let id = this.strategy.reglas.length>0?(Number(this.strategy.reglas[this.strategy.reglas.length-1].id)+1):0
       this.strategy.reglas.push({id:id+"",regla:this.rule,estado:false})
+      this.rule = "";
     }
   }
 

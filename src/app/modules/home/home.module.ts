@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 
 
 
@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
     CategoryCardComponent
   ],
   imports: [
-    CommonModule,RouterModule
+    CommonModule,RouterModule,RouterLink
   ]
 })
 export class HomeModule { }

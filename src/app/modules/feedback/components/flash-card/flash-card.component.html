@@ -10,14 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="row justify-content-center" *ngIf="studyList.type==='Pregunta/Respuesta'">
-                    <div class="col-12">
-                        <h5>Instrucciones</h5>
-                        <p>
-                            1) Mira la pregunta. tómate unos segundos para pensar en la respuesta. Una vez tengas claridad, persiona el botón mostrar respuesta.<br>
-                            2) Según la dificultad que te haya dado responder esta pregunta, califica la respuesta.
-                        </p>
-                        <hr>
-                    </div>
+                    
                     <div class="col-12 col-lg-5 mt-4 text-center justify-content-center" *ngIf="studyList.flashCards.length>0">
                         <div class="question">
                             <h5>Pregunta</h5>
@@ -46,11 +39,27 @@
                             <button type="button" class="btn btn-principal  mx-2" (click)="putScore('hard')">Difícil</button>
                         </div>
                         <div class="col-4 col-md-4 col-lg-4 col-xl-12">
-                            <button type="button" class="btn btn-principal  mx-2" (click)="putScore('good')">Bien</button>
+                            <button type="button" class="btn btn-principal  mx-2" (click)="putScore('good')">Normal</button>
                         </div>
                         <div class="col-4 col-md-4 col-lg-4 col-xl-12">
                             <button type="button" class="btn btn-principal  mx-2" (click)="putScore('easy')">Fácil</button>
                         </div>
+                    </div>
+                    <div class="col-12 col-lg-5 mt-3" *ngIf="studyList.flashCards.length>0">
+                        <h5>Instrucciones</h5>
+                        <p>
+                            1) Mira la pregunta. tómate unos segundos para pensar en la respuesta. Una vez tengas claridad, persiona el ícono del ojo para mostrar la respuesta.<br>
+                            2) Según la dificultad que te haya dado responder esta pregunta, califica la respuesta.
+                            
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-5 mt-3" *ngIf="studyList.flashCards.length>0">
+                        <h5>Calificación</h5>
+                        <p>
+                            <b>Difícil:</b> Si seleccionas esta opción, la pregunta se te mostrará nuevamente cuando termines la ronda de preguntas que has creado en tu lista.<br>
+                            <b>Normal:</b> Si seleccionas esta opción, la pregunta se te mostrará al siguiente día.<br>
+                            <b>Fácil:</b> Si seleccionas esta opción, la pregunta se te mostrará 2 días despúes. Si a los 2 días te parece nuevamente fácil la respuesta, el sitema te la mostrará 4 días después. Este ciclo se repetirá e irá incrementado de 2 en 2 hasta que califiques como difícil o normal la pregunta. 
+                        </p>
                     </div>
                 </div>
                 <div class="row justify-content-center" *ngIf="studyList.type==='Nota'">

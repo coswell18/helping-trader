@@ -7,6 +7,7 @@ import { Rule } from '../models/gestion.models';
 export interface Modulo {
   titulo:string;
   descripcion:string;
+  path:string;
 }
 
 @Injectable({
@@ -14,7 +15,7 @@ export interface Modulo {
 })
 export class SharingService {
 
-  private sharingInfoService: BehaviorSubject<Modulo> = new BehaviorSubject<Modulo>({titulo:"",descripcion:""});
+  private sharingInfoService: BehaviorSubject<Modulo> = new BehaviorSubject<Modulo>({titulo:"",descripcion:"",path:""});
   private sharingToastNotesService: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   
   

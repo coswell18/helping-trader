@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 
-
 @Component({
   // standalone: true,
   selector: 'app-root',
@@ -11,4 +10,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'gestion-control-trading';
   
+ 
 }

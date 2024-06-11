@@ -13,8 +13,10 @@ export class PrincipalBannerComponent implements OnInit {
   sharingService = inject(SharingService)
   ngOnInit():void{
     this.sharingService.getSharingInfoObservable().subscribe(modulo=>{
-      this.titulo = modulo.titulo
-      this.descripcion = modulo.descripcion
+      if( modulo.titulo != ""){
+        this.titulo = modulo.titulo
+        this.descripcion = modulo.descripcion
+      }
     })
   }
 

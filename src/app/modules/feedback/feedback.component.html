@@ -32,6 +32,17 @@
           </div>
           <div class="modal-body">
               <div class="row justify-content-center">
+                <div class="row col-12 mt-2">
+                    <p>
+                        Utiliza esta sección para crear el tipo de lista que desees.
+                    </p>
+                    <p>
+                        1) Selecciona el tipo de lista.<br>
+                        2) Ponle un nombre a tu lista que te ayude a identificarla fácilmente.<br>
+                        3) Escribe una descripción que explique tu lista y te ayude a enterder para que la estás creando.<br>
+                        4) Agrega todos los item que desees en el apartado más abajo según el tipo de lista que selecciones.<br>
+                    </p>
+                </div>
                   <div class="row col-12 mt-4">
                         <div class="mb-3 col-12 col-lg-3">
                             <label for="type" class="form-label">Tipo de lista</label>
@@ -62,18 +73,21 @@
                   <div class="row mt-4">
                     <hr>
                     <div class="row col-12" *ngIf="studyLists.type==='Pregunta/Respuesta'">
-                        <h5 class=" mb-4">Agrega una flash card de estudio a la lista <app-tooltip text="Cada flash card tiene una pregunta y una respuesta, es necesario que diligencies ambas cajas de texto para que te permita agregar la flash card a la lista" placement="bottom" width="20"></app-tooltip></h5>
-                        <div class="col-12 col-lg-6">
+                        <h5 class=" mb-4">Agrega un item tipo Pregunta/Respuesta a la lista <app-tooltip text="Cada item que agregues a la lista tiene una pregunta y una respuesta, es necesario que diligencies la caja de texto pregunta y respuesta para agregar el item a la lista" placement="bottom" width="20"></app-tooltip></h5>
+                        <div class="col-12 col-lg-4">
+                            <p>En la lista de estudio tipo <b>Pregunta/Respuesta</b> debes agregar un pregunta y una respuesta a esa pregunta. Puedes acceder a la opción de repaso una vez hayas creado la lista presionando el botón de <img src="assets/icons/play-fill.svg" alt=""> para empezar a estudiar!</p>
+                        </div>
+                        <div class="col-12 col-lg-4" #targetDiv>
                             <label for="question" class="form-label">Agrega la pregunta</label>
                             <div class="d-flex">
-                                <textarea class="form-control" id="question" [rows]="3" placeholder="Escribe la pregunta" [(ngModel)]="flashCard.question" formControlName="question"></textarea>
+                                <textarea class="form-control" id="question" [rows]="3" placeholder="Ejemplo: ¿Qué es un imbalance?" [(ngModel)]="flashCard.question" formControlName="question"></textarea>
                             </div> 
                            
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12 col-lg-4">
                             <label for="answer" class="form-label">Agrega la respuesta</label>
                             <div class="d-flex">
-                                <textarea class="form-control" id="answer" [rows]="3" placeholder="Escribe la respuesta" [(ngModel)]="flashCard.answer" formControlName="answer"></textarea>
+                                <textarea class="form-control" id="answer" [rows]="3" placeholder="Ejemplo: Es un vació de liquidez que deja el precio" [(ngModel)]="flashCard.answer" formControlName="answer"></textarea>
                             </div> 
                             
                         </div>
@@ -87,27 +101,30 @@
                         </div>
                     </div>
                     <div class="row col-12" *ngIf="studyLists.type==='Nota'">
-                        <h5 class=" mb-4">Agrega items de estudio a la lista <app-tooltip text="Agrega las notas de estudio que quieras, debes diligencias la caja de texto para que te permita adicionar la nota a la lista" placement="bottom" width="20"></app-tooltip></h5>
+                        <h5 class=" mb-4">Agrega items de estudio a la lista <app-tooltip text="Agrega las notas de estudio que quieras, debes diligenciar la caja de texto para que te permita adicionar la nota a la lista" placement="bottom" width="20"></app-tooltip></h5>
+                        <div class="col-12 col-lg-6">
+                            <p>En la lista de estudio tipo <b>Nota</b> puedes agregr las notas que desees. Puedes acceder a la opción de repaso una vez hayas creado la lista presionando el botón de <img src="assets/icons/play-fill.svg" alt=""> para empezar a estudiar!</p>
+                        </div>
                         <div class="col-12 col-lg-6">
                             <label for="note" class="form-label">Agrega una nota que desees recordar</label>
-                            <div class="d-flex">
-                                <textarea class="form-control" id="note" [rows]="3" placeholder="Escribe la nota" [(ngModel)]="flashCard.note" formControlName="note"></textarea>
+                            <div class="d-flex" #targetDiv>
+                                <textarea class="form-control" id="note" [rows]="3" placeholder="Ejmplo: Antes de operar, debo revisar que todas las reglas de mi estrategia se cumplan" [(ngModel)]="flashCard.note" formControlName="note"></textarea>
                             </div> 
                             <span class="message-error" *ngIf="studyLists.flashCards.length==0">
                               (Debe tener mínimo un item agregado)
                             </span>
                         </div>
-                        <div class="col-12 mt-3">
+                        <div class="col-12 mt-3" >
                             <button type="button" class="btn btn-principal" (click)="addFlashCard()">Agregar item de estudio</button>
                         </div>
                     </div>
                   </div>
               </div>
-              <div class="row justify-content-center mt-4">
+              <div class="row justify-content-center mt-4" >
                 <div class="row col-12 contenedor-reglas">
                     <hr>
                     <h5 class=" mb-4">Listado de estudio</h5>
-                    <app-table-flashcard [data]="studyLists.flashCards" (deleteElement)="deleteFlashCard($event)"></app-table-flashcard>
+                    <app-table-flashcard [data]="studyLists.flashCards" [studyLists]="studyLists" (deleteElement)="deleteFlashCard($event)"></app-table-flashcard>
                 </div>
               </div>
           </div>

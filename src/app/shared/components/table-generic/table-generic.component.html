@@ -25,12 +25,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;let i = index">
-          <td scope="row">{{i}}</td>
+          <td scope="row">{{((page - 1) * pageSize)+i}}</td>
           <td *ngFor="let column of columns">{{item[column.id]}}</td>
           <td>
             <div class="d-flex">
                 <a href="javascript:void(0)" *ngIf="actions.play" class="mx-3" (click)="playData(item)"><img src="assets/icons/play-fill.svg" alt=""></a>
-                <a href="javascript:void(0)" *ngIf="actions.show" class="mx-3" (click)="sendData(item)"><img src="assets/icons/eye-fill.svg" alt=""></a>
+                <a href="javascript:void(0)" *ngIf="actions.show" class="mx-3" (click)="sendData(item)"><img src="assets/icons/pencil-fill.svg" alt=""></a>
                 <a href="javascript:void(0)" *ngIf="actions.del" class="mx-3" (click)="confirmDelete(item)"><img src="assets/icons/trash-fill.svg" alt=""></a>
             </div>
           </td>
@@ -53,7 +53,7 @@
       <span>
         <div class="d-flex">
             <a href="javascript:void(0)" *ngIf="actions.play"  (click)="playData(item)"><img src="assets/icons/play-fill.svg" alt=""></a>
-            <a href="javascript:void(0)" *ngIf="actions.show"  (click)="sendData(item)"><img src="assets/icons/eye-fill.svg" alt=""></a>
+            <a href="javascript:void(0)" *ngIf="actions.show"  (click)="sendData(item)"><img src="assets/icons/pencil-fill.svg" alt=""></a>
             <a href="javascript:void(0)" *ngIf="actions.del"  (click)="confirmDelete(item)"><img src="assets/icons/trash-fill.svg" alt=""></a>
         </div>
       </span>

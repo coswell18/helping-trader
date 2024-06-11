@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FlashCard, StudyList } from 'src/app/shared/models/gestion.models';
 
@@ -8,6 +8,7 @@ import { FlashCard, StudyList } from 'src/app/shared/models/gestion.models';
   styleUrls: ['./feedback.component.scss']
 })
 export class FeedbackComponent {
+  @ViewChild('targetDiv') targetDiv!: ElementRef;
   alertType:string=""
   alertMessage:string=""
   stateAlert:boolean=false;
@@ -29,6 +30,10 @@ export class FeedbackComponent {
     question: new FormControl('', []),
     answer: new FormControl('', []),
   });
+
+  scrollToDiv(): void {
+    this.targetDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
 
   submit() {
     if (this.formularioListaEstudio.valid)
@@ -55,11 +60,15 @@ export class FeedbackComponent {
 
   addFlashCard(){
     if((this.studyLists.type == "Nota" && this.flashCard.note=="") || (this.studyLists.type == "Pregunta/Respuesta" && (this.flashCard.question==="" || this.flashCard.answer===""))){
-      this.callModal("advertencia","Debes agregar un item para poderla adicionar a la lista")
+      this.callModal("advertencia","Debes llenar los campos para poder agregar el item a la lista")
     }else{
       let now = new Date().toString()
       let id = this.studyLists.flashCards.length>0?(Number(this.studyLists.flashCards[this.studyLists.flashCards.length-1].id)+1):0
       this.studyLists.flashCards.push({id:id+"",note:this.flashCard.note,question:this.flashCard.question,answer:this.flashCard.answer,interval:1,nextReview:now,image:this.flashCard.image})
+      this.flashCard.note = ""
+      this.flashCard.question = ""
+      this.flashCard.answer = ""
+      this.scrollToDiv()
     }
   }
 

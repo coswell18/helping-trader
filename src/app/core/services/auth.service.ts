@@ -7,13 +7,12 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://api.example.com/auth';
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string, password: string }) {
     if(credentials.email ==="tfmunir" && credentials.password==="tfmunir"){
-      localStorage.setItem('token', "response.token");
+      localStorage.setItem('token', "tfmunir");
       return true
     }
     return false

@@ -215,7 +215,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
 		animationEnabled: true,
 		theme: "light2",
 		title:{
-		  text: "Porcentaje acertividad",
+		  text: "Porcentaje asertividad",
 		  fontSize: 25,
 		  fontFamily: "Montserrat",
 		  fontColor: "#67697C"
