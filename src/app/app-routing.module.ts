@@ -54,15 +54,15 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/feedback/feedback.module').then((m) => m.FeedbackModule),canActivate: [AuthGuard]
       },
-      {
-        path: '**',
-        redirectTo: 'inicio', 
-      },
       // {
-      //     path: '',
-      //     redirectTo: 'home',
-      //     pathMatch: 'full',
-      // }
+      //   path: '**',
+      //   redirectTo: 'home',
+      // },
+      {
+          path: '**',
+          redirectTo: 'inicio',
+          pathMatch: 'full',
+      }
     ]
   }
 // ,
