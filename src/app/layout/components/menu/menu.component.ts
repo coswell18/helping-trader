@@ -20,13 +20,14 @@ export class MenuComponent implements OnInit,AfterViewInit {
   sizeScreen:boolean=false;
   @ViewChild('menu') menu:ElementRef |null = null
 
-  constructor(private router:Router) {
+  constructor(private router:Router, private activatedRouter:ActivatedRoute) {
   }
 
   ngOnInit(): void {
     // this.itemSelected = location.pathname.replaceAll("/","")
     this.sharingService.sharingInfoObservable = {titulo:"¿Qué es Helping Trader?",descripcion:"Acá está todo lo que necesitas saber",path:"inicio"}
-    let ele = this.menuObj.find(ele=>ele.path == location.pathname.replaceAll("/",""))
+    let path = location.pathname.split("/")
+    let ele = this.menuObj.find(ele=>ele.path == path[path.length-1])
     this.selectItem(ele)
 
     window.addEventListener('resize', () =>{
@@ -41,6 +42,11 @@ export class MenuComponent implements OnInit,AfterViewInit {
         this.selectItem(module)
       }
     })
+
+    this.activatedRouter.url.subscribe(() => {
+      let a = this.activatedRouter.snapshot.paramMap.get('idCategoria');
+      let b=""
+    });
   }
 
   ngAfterViewInit(): void {
