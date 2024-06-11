@@ -58,11 +58,11 @@ const routes: Routes = [
       //   path: '**',
       //   redirectTo: 'home',
       // },
-      {
-          path: '**',
-          redirectTo: 'inicio',
-          pathMatch: 'full',
-      }
+      // {
+      //     path: '**',
+      //     redirectTo: 'inicio',
+      //     pathMatch: 'full',
+      // }
     ]
   }
 // ,
