@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;let i = index">
-      <td scope="row">{{((page - 1) * pageSize)+i}}</td>
+      <td scope="row">{{((page - 1) * pageSize)+i+1}}</td>
       <td *ngIf="studyLists.type=='Nota'"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.note" ></textarea></td>
       <td *ngIf="studyLists.type=='Pregunta/Respuesta'"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.question" ></textarea></td>
       <td *ngIf="studyLists.type=='Pregunta/Respuesta'"><textarea class="w-100 form-control" rows="2" [(ngModel)]="item.answer" ></textarea></td>

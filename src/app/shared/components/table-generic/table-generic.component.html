@@ -25,7 +25,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of data | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;let i = index">
-          <td scope="row">{{((page - 1) * pageSize)+i}}</td>
+          <td scope="row">{{((page - 1) * pageSize)+i+1}}</td>
           <td *ngFor="let column of columns">{{item[column.id]}}</td>
           <td>
             <div class="d-flex">
@@ -48,7 +48,7 @@
       <span class="title-card">Acciones</span>
     </div>
     <div class="t-columns-end">
-      <span >{{i}}</span>
+      <span >{{((page - 1) * pageSize)+i+1}}</span>
       <span *ngFor="let column of columns" >{{containDescription(item,column)}}</span>
       <span>
         <div class="d-flex">
