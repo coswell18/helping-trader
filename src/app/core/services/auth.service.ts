@@ -13,6 +13,7 @@ export class AuthService {
   login(credentials: { email: string, password: string }) {
     if(credentials.email ==="tfmunir" && credentials.password==="tfmunir"){
       localStorage.setItem('token', "tfmunir");
+      localStorage.setItem('tokendate', new Date().toString());
       return true
     }
     return false
@@ -23,6 +24,17 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    debugger
+    let date:any = localStorage.getItem('tokendate');
+    date = new Date(date)
+    let dateTmp = new Date();
+    let token = !!localStorage.getItem('token')
+    if(dateTmp.getDay() == date.getDay() && token){
+      return true;
+    }else{
+      localStorage.removeItem('token');
+      localStorage.removeItem('tokendate');
+      return false;
+    }
   }
 }
