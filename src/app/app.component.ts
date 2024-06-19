@@ -15,12 +15,12 @@ export class AppComponent {
   dbService:DbService = inject(DbService)
   constructor(){
     // this.addNewList()
-    let strategies:any = localStorage.getItem("strategies")
-    strategies!=null?this.dbService.setItemBd("strategies",JSON.parse(strategies)):null
-    let operations:any = localStorage.getItem("operations")
-    operations!=null?this.dbService.setItemBd("operations",JSON.parse(operations)):null
-    let studieslist:any = localStorage.getItem("studieslist")
-    studieslist!=null?this.dbService.setItemBd("studieslist",JSON.parse(studieslist)):null
+    // let strategies:any = localStorage.getItem("strategies")
+    // strategies!=null?this.dbService.setItemBd("strategies",JSON.parse(strategies)):null
+    // let operations:any = localStorage.getItem("operations")
+    // operations!=null?this.dbService.setItemBd("operations",JSON.parse(operations)):null
+    // let studieslist:any = localStorage.getItem("studieslist")
+    // studieslist!=null?this.dbService.setItemBd("studieslist",JSON.parse(studieslist)):null
 
   }
 
