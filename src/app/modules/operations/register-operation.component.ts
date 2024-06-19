@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateFormatPipe3 } from 'src/app/pipe/date-format.pipe';
 import { Operation, Rule, Strategy } from 'src/app/shared/models/gestion.models';
+import { DbService } from 'src/app/shared/services/db.service';
 import { SharingService } from 'src/app/shared/services/sharing.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class RegisterOperationComponent implements OnInit, OnDestroy {
   operation: Operation = new Operation("","","","","","","","","","",[],"")
   stateButtonEdit:boolean=false
   sharedService:SharingService = inject(SharingService)
+  dbService:DbService = inject(DbService)
   
   resultado!: string;
 
@@ -123,12 +125,16 @@ export class RegisterOperationComponent implements OnInit, OnDestroy {
     // this.strategy.reglas.splice(index,1)
   }
   saveBd(){
-    localStorage.setItem("operations",JSON.stringify(this.operations))
+
+    this.dbService.setItemBd("operations",this.operations)
   }
-  loadBd(){
-    let data = localStorage.getItem("operations")
-    data != null && data != ""?this.operations = JSON.parse(data):null
-    data = localStorage.getItem("strategies")
-    data != null  && data != ""?this.strategies = JSON.parse(data):null
+  async loadBd(){
+
+
+    let data:any = await this.dbService.getItemBd("operations")
+    data != null && data != ""?this.operations = data:null
+
+    data = await this.dbService.getItemBd("strategies")
+    data != null  && data != ""?this.strategies = data:null
   }
 }

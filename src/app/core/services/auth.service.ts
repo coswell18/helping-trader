@@ -24,7 +24,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    debugger
     let date:any = localStorage.getItem('tokendate');
     date = new Date(date)
     let dateTmp = new Date();

@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FlashCard, StudyList } from 'src/app/shared/models/gestion.models';
+import { DbService } from 'src/app/shared/services/db.service';
 
 @Component({
   selector: 'app-feedback',
@@ -20,6 +21,8 @@ export class FeedbackComponent {
   stateButtonEdit:boolean=false
   
   resultado!: string;
+
+  dbService:DbService = inject(DbService)
 
   formularioListaEstudio = new FormGroup({
     // name: new FormControl('', [Validators.required, Validators.minLength(10)]),
@@ -150,15 +153,15 @@ export class FeedbackComponent {
       }
 
     })
-    localStorage.setItem("studieslist",JSON.stringify(this.list))
+    this.dbService.setItemBd("studieslist",this.list)
   }
 
   saveBd(){
-    localStorage.setItem("studieslist",JSON.stringify(this.list))
+    this.dbService.setItemBd("studieslist",this.list)
   }
 
-  loadBd(){
-    let data = localStorage.getItem("studieslist")
-    data != null?this.list = JSON.parse(data):[]
+  async loadBd(){
+    let data:any = await this.dbService.getItemBd("studieslist")
+    data != null?this.list = data:null
   }
 }

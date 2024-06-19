@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { FlashCard, StudyList } from 'src/app/shared/models/gestion.models';
+import { DbService } from 'src/app/shared/services/db.service';
 
 @Component({
   selector: 'app-flash-card',
@@ -15,6 +16,8 @@ export class FlashCardComponent implements OnChanges{
   posNote:number = 0;
   stateAnswer:boolean = false;
 
+  dbService:DbService = inject(DbService)
+
 
   ngOnChanges(changes: any): void {
     if(!changes.list.firstChange){
@@ -25,14 +28,17 @@ export class FlashCardComponent implements OnChanges{
     } 
   }
 
-  sendData(){
+  async sendData(){
     this.sendStudyList.emit(this.studyList);
   }
 
-  loadFlashCards(){
+  async loadFlashCards(){
     let today = new Date();
-    let data:any = localStorage.getItem("studieslist")
-    data != null?data = JSON.parse(data): data = []
+   
+
+    let data:any = await this.dbService.getItemBd("studieslist")
+    data != null?data = data:data = []
+
     let index = data.findIndex((item: { id: string; }) =>item.id == this.list.id)
     if(index!=-1){
       let list:StudyList = data[index];
@@ -86,14 +92,17 @@ export class FlashCardComponent implements OnChanges{
 
   
 
-  putScore(score:string){
+  async putScore(score:string){
     this.updateFlashcard(score)
-    this.sendData()
+    await this.sendData()
     this.stateAnswer = false;
     if(this.posNote < this.studyList.flashCards.length-1){
       this.posNote++;
     }else{
-      this.loadFlashCards()
+      setTimeout(() => {
+        this.loadFlashCards()
+      
+      }, 200);
     }
   }
 }

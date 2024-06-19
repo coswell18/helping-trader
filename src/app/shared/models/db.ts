@@ -1,8 +1,8 @@
 import Dexie, { Table } from 'dexie';
 
 export interface BDHelpingTrader {
-    id?: number;
-    data:string
+    id?: string;
+    data:object
   }
 
 export class AppDB extends Dexie {

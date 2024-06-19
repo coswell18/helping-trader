@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { DateFormatPipe2 } from 'src/app/pipe/date-format.pipe';
 import { SharingService } from 'src/app/shared/services/sharing.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DbService } from 'src/app/shared/services/db.service';
 
 
 @Component({
@@ -47,6 +48,8 @@ export class DashboardComponent implements OnInit, OnDestroy{
   selectedStrategy : any = "";
   strategies: Strategy[]=[]
 
+  dbService:DbService = inject(DbService)
+
   constructor(private dateFormatPipe: DateFormatPipe2){
 
   }
@@ -59,9 +62,8 @@ export class DashboardComponent implements OnInit, OnDestroy{
   })
 
   ngOnInit(): void {
-	let data;
-	data = localStorage.getItem("strategies")
-    data != null && data != ""?this.strategies = JSON.parse(data):null
+	this.getStrategies()
+
 	this.dateIni = localStorage.getItem("FilterDateIni") || ""
 	this.dateFin = localStorage.getItem("FilterDateFin") || ""
 	this.loadGoal()
@@ -72,12 +74,17 @@ export class DashboardComponent implements OnInit, OnDestroy{
 	
   }
 
+  async getStrategies(){
+	let data:any = await this.dbService.getItemBd("strategies")
+    data != null?this.strategies = data:null
+  }
+
   ngOnDestroy(): void {
 	this.sharedService.sharingToastNotesObservable = false;
   }
 
-  filter(){
-	this.getDataDashBoard()
+  async filter(){
+	await this.getDataDashBoard()
 	this.getDiscipline()
 	this.getWinrate()
 	this.getGoal()
@@ -101,8 +108,11 @@ export class DashboardComponent implements OnInit, OnDestroy{
 	this.goal = localStorage.getItem("goal")==null && localStorage.getItem("goal")=="" ?0:Number(localStorage.getItem("goal"))
   }
 
-  getDataDashBoard(){
-	let dataOperations:any = localStorage.getItem("operations")?localStorage.getItem("operations"):[]
+  async getDataDashBoard(){
+
+	let dataOperations:any = await this.dbService.getItemBd("operations")
+    dataOperations != null && dataOperations != ""?dataOperations=JSON.stringify(dataOperations):dataOperations=[]
+
 	
 	if(dataOperations.length>0){
 		this.dataOperationsTmp = JSON.parse(dataOperations)

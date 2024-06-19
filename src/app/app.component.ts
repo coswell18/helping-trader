@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { liveQuery } from 'dexie';
-import { db } from './shared/models/db';
+import { Component, inject } from '@angular/core';
+import { DbService } from './shared/services/db.service';
 
 
 @Component({
@@ -12,16 +11,17 @@ import { db } from './shared/models/db';
 export class AppComponent {
   title = 'gestion-control-trading';
   
-  todoLists$ = liveQuery(() => db.hepingTrader.toArray());
-  data = new Date();
 
+  dbService:DbService = inject(DbService)
   constructor(){
-    this.addNewList()
+    // this.addNewList()
+    // let strategies:any = localStorage.getItem("strategies")
+    // strategies!=null?this.dbService.setItemBd("strategies",JSON.parse(strategies)):null
+    // let operations:any = localStorage.getItem("operations")
+    // operations!=null?this.dbService.setItemBd("operations",JSON.parse(operations)):null
+    // let studieslist:any = localStorage.getItem("studieslist")
+    // studieslist!=null?this.dbService.setItemBd("studieslist",JSON.parse(studieslist)):null
+
   }
-  async addNewList() {
-    this.data = new Date();
-    await db.hepingTrader.add({
-      data: this.data.toDateString()
-    });
-  }  
+
 }

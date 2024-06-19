@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { FlashCard, Operation, Rule, StudyList } from '../../models/gestion.models';
 import { SharingService } from '../../services/sharing.service';
+import { DbService } from '../../services/db.service';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class ToastNoteComponent implements AfterViewInit{
   interval:any;
   typeNotes:string[]=["note","rule"];
   type:string = "note"
+
+  dbService:DbService = inject(DbService)
 
   constructor(){
     
@@ -49,18 +52,22 @@ export class ToastNoteComponent implements AfterViewInit{
     this.toast?.nativeElement.classList.remove("active");
   }
 
-  getData(){
-    let dataOperations:any = localStorage.getItem("operations")?localStorage.getItem("operations"):"[]"
-    let dataStudiesList:any = localStorage.getItem("studieslist")?localStorage.getItem("studieslist"):"[]"
-    this.dataOperations = JSON.parse(dataOperations)
-    this.dataStudiesList = JSON.parse(dataStudiesList)
+  async getData(){
+    // 
+
+    let data:any = await this.dbService.getItemBd("operations")
+    data != null && data != ""?this.dataOperations = data:this.dataOperations=[]
+
+    data = await this.dbService.getItemBd("studieslist")
+    data != null?this.dataStudiesList = data:this.dataStudiesList=[]
+
     this.getRules()
     this.getNotes()
   }
 
   playTask(){
     this.interval = setInterval(()=>{
-      this.type  = this.typeNotes[Math.floor(Math.random() * this.typeNotes.length)];
+      // this.type  = this.typeNotes[Math.floor(Math.random() * this.typeNotes.length)];
       this.playTaskNotes();
       // this.type==="rule"?this.playTaskRules():this.playTaskNotes();
     },this.timer)

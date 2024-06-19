@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Rule, Strategy } from 'src/app/shared/models/gestion.models';
+import { DbService } from 'src/app/shared/services/db.service';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class RegisterStrategyComponent implements OnInit {
   selectedImage: any = null;
   strategy: Strategy = new Strategy("","","","",[])
   stateButtonEdit:boolean=false
+
+  dbService:DbService = inject(DbService)
   
 
   formularioStrategies = new FormGroup({
@@ -131,10 +134,10 @@ export class RegisterStrategyComponent implements OnInit {
     this.strategy.reglas.splice(index,1)
   }
   saveBd(){
-    localStorage.setItem("strategies",JSON.stringify(this.strategies))
+    this.dbService.setItemBd("strategies",this.strategies)
   }
-  loadBd(){
-    let data = localStorage.getItem("strategies")
-    data != null?this.strategies = JSON.parse(data):null
+  async loadBd(){
+    let data:any = await this.dbService.getItemBd("strategies")
+    data != null?this.strategies = data:null
   }
 }
