@@ -258,8 +258,10 @@ export class DashboardComponent implements OnInit, OnDestroy{
 	let win = this.dataOperations.reduce((acum,operation)=>{
 		if(operation.result=="win"){
 			return {win:acum.win+(Number(operation.rb)*Number(operation.risk)),lose:acum.lose}
-		}else{
+		}else if(operation.result=="lose"){
 			return {win:acum.win,lose:acum.lose+Number(operation.risk)}
+		}else{
+			return {win:acum.win,lose:acum.lose}
 		}
 	},{win:0,lose:0})
 
