@@ -11,8 +11,8 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string, password: string }) {
-    if(credentials.email ==="tfmunir" && credentials.password==="tfmunir"){
-      localStorage.setItem('token', "tfmunir");
+    if(credentials.email ==="unirtfm" && credentials.password==="unirtfm"){
+      localStorage.setItem('token', "unirtfm");
       localStorage.setItem('tokendate', new Date().toString());
       return true
     }
@@ -28,7 +28,9 @@ export class AuthService {
     date = new Date(date)
     let dateTmp = new Date();
     let token = !!localStorage.getItem('token')
-    if(dateTmp.getDay() == date.getDay() && token){
+    let dayTmp = dateTmp.getDate()
+    let day = date.getDate()
+    if(dayTmp == day && token){
       return true;
     }else{
       localStorage.removeItem('token');

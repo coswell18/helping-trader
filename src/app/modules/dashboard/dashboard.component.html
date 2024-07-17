@@ -40,9 +40,11 @@
     
     <div class="row justify-content-around mb-4" *ngIf="dataOperations.length > 0">
         <div class="col-12 col-lg-5 mt-4 contenedor-chart">
+            <app-tooltip text="Este gráfico mide tu disciplina frente a las reglas que haz cumplido vs las que no haz cumplido" placement="right"></app-tooltip>
             <canvasjs-chart [options]="chartOptionsPieDisciplina"  *ngIf="statusDicipline"></canvasjs-chart>
         </div>
         <div class="col-12 col-lg-5 mt-4 contenedor-chart">
+            <app-tooltip text="Este gráfico mide tu porcentaje de asertividad de operaciones ganadas vs las perdidas" placement="right"></app-tooltip>
             <canvasjs-chart [options]="chartOptionsPieWinRate"  *ngIf="statusWinRate"></canvasjs-chart>
         </div>
     </div>
@@ -54,7 +56,9 @@
         </div>
     </div>
     <div class="row mt-5 justify-content-around" *ngIf="dataOperations.length > 0">
+        
         <div class="col-12 col-lg-5 mt-4 contenedor-chart">
+            <app-tooltip text="Este gráfico te informa si haz alcanzado tu objetivo ingreado en el campo de texto anterior" placement="right"></app-tooltip>
             <canvasjs-chart [options]="chartOptionsGoal2"  *ngIf="statusGoal"></canvasjs-chart>
         </div>
         <div class="row col-12 col-lg-5 mt-4 justify-content-center text-center contenedor-chart">
@@ -63,9 +67,15 @@
                 <div class="col-12 texto-datos">{{this.percentageWin}}%</div>
             </div>
             <div class="row col-12">
-                <div class="col-12 titulo-datos">Operaciones ganadas vs perdidas</div>
-                <div class="col-6 texto-datos" style="border-radius: 0rem 0rem 0rem 0.938rem ;">{{this.operationWin}}</div>
-                <div class="col-6 texto-datos" style="border-radius: 0rem 0rem 0.938rem 0rem ;">{{this.operationLose}}</div>
+                <!-- <div class="col-12 titulo-datos">Operaciones ganadas vs perdidas vs brek-even</div> -->
+                <div class="col-4 titulo-datos" style="border-radius: 0rem 0rem 0rem 0rem ;">Ganadas</div>
+                <div class="col-4 titulo-datos" style="border-radius: 0rem 0rem 0rem 0rem ;">Perdidas</div>
+                <div class="col-4 titulo-datos" style="border-radius: 0rem 0rem 0rem 0rem ;">Break-even</div>
+            </div>
+            <div class="row col-12">
+                <div class="col-4 texto-datos" style="border-radius: 0rem 0rem 0rem 0.938rem ;">({{this.operationWin}}) Operaciones</div>
+                <div class="col-4 texto-datos" style="border-radius: 0rem 0rem 0rem 0rem ;">({{this.operationLose}}) Operaciones</div>
+                <div class="col-4 texto-datos" style="border-radius: 0rem 0rem 0.938rem 0rem ;">({{this.operationBe}}) Operaciones</div>
             </div>
         </div>
     </div>

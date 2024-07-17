@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
   percentageWin:number=0;
   operationWin:number=0;
   operationLose:number=0;
+  operationBe:number=0;
   
   chartOptionsPieDisciplina = {}
   chartOptionsPieWinRate ={}
@@ -209,16 +210,20 @@ export class DashboardComponent implements OnInit, OnDestroy{
 	this.statusWinRate = false
 	let win = this.dataOperations.reduce((acum,operation)=>{
 		if(operation.result=="win"){
-			return {win:acum.win+1,lose:acum.lose}
+			return {win:acum.win+1,lose:acum.lose, be:acum.be}
+		}else if(operation.result=="lose"){
+			return {win:acum.win,lose:acum.lose+1, be:acum.be}
 		}else{
-			return {win:acum.win,lose:acum.lose+1}
+			return {win:acum.win,lose:acum.lose, be:acum.be+1}
 		}
-	},{win:0,lose:0})
+	},{win:0,lose:0,be:0})
 
 	this.operationWin = win.win;
 	this.operationLose = win.lose;
-	this.winrateWin = (win.win/this.dataOperations.length)*100
-	this.winRateLose = ((this.dataOperations.length-win.win)/this.dataOperations.length)*100
+	this.operationBe = win.be;
+	let totalOperations = this.dataOperations.filter(op=>op.result=="win" || op.result=="lose").length;
+	this.winrateWin = (win.win/totalOperations)*100
+	this.winRateLose = ((totalOperations-win.win)/totalOperations)*100
 
 	this.chartOptionsPieWinRate =  {
 		exportEnabled: true,
@@ -282,7 +287,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
 	this.chartOptionsGoal2 = {
 		theme: "light2",
 		title:{
-		  text: "Objetivo %",
+		  text: this.goalWin>=this.goal?"Haz alcanzo tu objetivo de "+this.goal+"%":"Sigue así, pronto alcanzarás tu objetivo de "+this.goal+"%",
 		  fontSize: 25,
 		  fontFamily: "Montserrat",
 		  fontColor: "#67697C"
