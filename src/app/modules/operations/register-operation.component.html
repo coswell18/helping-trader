@@ -54,14 +54,14 @@
                       <label for="feeling" class="form-label">Sentimiento</label><app-tooltip text="¿Qué sentiento has experimentado al momento de abrir tu operación?" placement="right"></app-tooltip>
                       <select name="feeling"  [(ngModel)]="operation.feeling" id="feeling" data-placeholder="Selecciona el sentimiento" data-live-search="true" class="form-select form-control" formControlName="feeling" required>
                         <option value="" selected >Seleccione el sentimiento</option>
-                        <option value="Miendo" selected >Tranquilidad</option>
+                        <option value="Tranquilidad" selected >Tranquilidad</option>
                         <option value="Alegría"  >Alegría</option>
                         <option value="Codicia"  >Codicia</option>
                         <option value="Estrés"  >Estrés</option>
                         <option value="Enfado"  >Enfado</option>
                         <option value="Ansiedad"  >Ansiedad</option>
                         <option value="Sobre confianza"  >Sobre confianza</option>
-                        <option value="Miendo" selected >Miedo</option>
+                        <option value="Miedo" selected >Miedo</option>
                       </select>
                       <span class="message-error" *ngIf="this.formularioOperations.get('feeling')?.errors?.['required']">
                         (Campo requerido)
